@@ -148,7 +148,9 @@ Generate Reports
 
 ## 🏠 Dashboard
 
-![Dashboard](screenshots/dashboard.png)
+## 🏠 Dashboard
+
+<img src="https://raw.githubusercontent.com/donepudiharshita/fairai-inspector/main/screenshots/dashboard.png" width="100%">
 
 The dashboard provides a complete overview of dataset statistics, AI Fairness Index, Bias Score, Model Accuracy, Governance Score, and fairness evaluation.
 
@@ -156,7 +158,8 @@ The dashboard provides a complete overview of dataset statistics, AI Fairness In
 
 ## 📊 Demographic Analysis & Live Prediction
 
-![Analysis](screenshots/analysis.png)
+
+<img src="https://raw.githubusercontent.com/donepudiharshita/fairai-inspector/main/screenshots/analysis.png" width="100%">
 
 Displays demographic distribution, fairness comparison among groups, and predicts AI risk using user inputs.
 
@@ -164,7 +167,8 @@ Displays demographic distribution, fairness comparison among groups, and predict
 
 ## 🤖 Explainable AI & Bias Alerts
 
-![Prediction](screenshots/prediction.png)
+
+<img src="https://raw.githubusercontent.com/donepudiharshita/fairai-inspector/main/screenshots/prediction.png" width="100%">
 
 Explains model predictions and automatically highlights fairness violations using the Bias Alert System.
 
