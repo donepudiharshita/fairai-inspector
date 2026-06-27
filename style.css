@@ -1,0 +1,52 @@
+body{
+    background: linear-gradient(to right, #0f172a, #111827);
+    color: white;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+}
+
+.navbar{
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+}
+
+.hero-section{
+    padding: 40px;
+}
+
+.metric-card{
+    background: rgba(255,255,255,0.08);
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
+    backdrop-filter: blur(12px);
+    box-shadow: 0px 4px 20px rgba(0,0,0,0.4);
+    transition: 0.3s;
+}
+
+.metric-card:hover{
+    transform: translateY(-5px);
+}
+
+.metric-card h2{
+    margin-top: 15px;
+    color: #38bdf8;
+}
+
+.chart-card{
+    background: rgba(255,255,255,0.08);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 20px rgba(0,0,0,0.4);
+}
+
+.recommendation-card{
+    background: rgba(255,255,255,0.08);
+    padding: 30px;
+    border-radius: 20px;
+    margin-bottom: 40px;
+}
+
+ul li{
+    margin: 10px 0;
+}

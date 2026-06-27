@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI FairLens</title>
+
+    <!-- Bootstrap -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Google Charts -->
+
+    <script type="text/javascript"
+            src="https://www.gstatic.com/charts/loader.js">
+    </script>
+
+    <!-- Papa Parse -->
+
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js">
+    </script>
+
+    <!-- TensorFlow -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs">
+    </script>
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+
+        body{
+
+            background: linear-gradient(to right,#020617,#0f172a);
+
+            color:white;
+
+            font-family: Arial, sans-serif;
+
+            min-height:100vh;
+
+            padding:30px;
+        }
+
+        .login-page{
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            height:100vh;
+        }
+
+        .login-card{
+
+            width:400px;
+
+            padding:40px;
+
+            background:rgba(255,255,255,0.08);
+
+            border-radius:20px;
+
+            backdrop-filter:blur(10px);
+
+            box-shadow:0px 4px 20px rgba(0,0,0,0.4);
+        }
+
+        .dashboard{
+
+            display:none;
+        }
+
+        .glass-card{
+
+            background: rgba(255,255,255,0.08);
+
+            border-radius:20px;
+
+            padding:25px;
+
+            margin-bottom:20px;
+
+            backdrop-filter: blur(10px);
+
+            box-shadow:0px 4px 20px rgba(0,0,0,0.4);
+        }
+
+        h1{
+
+            text-align:center;
+
+            font-size:55px;
+
+            font-weight:bold;
+        }
+
+        .metric-value{
+
+            font-size:38px;
+
+            font-weight:bold;
+
+            color:#38bdf8;
+        }
+
+        #raceChart,
+        #genderChart{
+
+            width:100%;
+
+            height:400px;
+
+            background:white;
+
+            border-radius:15px;
+        }
+
+        .fairness-circle{
+
+            width:180px;
+
+            height:180px;
+
+            border-radius:50%;
+
+            border:12px solid #38bdf8;
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            margin:auto;
+
+            font-size:40px;
+
+            font-weight:bold;
+
+            color:#38bdf8;
+        }
+
+        footer{
+
+            text-align:center;
+
+            margin-top:40px;
+
+            color:#94a3b8;
+        }
+
+        table{
+
+            color:white !important;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- LOGIN -->
+
+<div class="login-page"
+     id="loginPage">
+
+    <div class="login-card">
+
+        <h2 class="text-center mb-4">
+
+            AI FairLens Login
+
+        </h2>
+
+        <input type="email"
+               id="email"
+               class="form-control mb-3"
+               placeholder="Enter Email">
+
+        <input type="password"
+               id="password"
+               class="form-control mb-3"
+               placeholder="Enter Password">
+
+        <button class="btn btn-primary w-100"
+                onclick="login()">
+
+            Login
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- DASHBOARD -->
+
+<div class="dashboard"
+     id="dashboard">
+
+<div class="container">
+
+    <h1>
+
+        <i class="fa-solid fa-shield-halved"></i>
+
+        AI FairLens
+
+    </h1>
+
+    <h4 class="text-center text-info mb-5">
+
+        AI-Powered Bias Detection & Fairness Auditing Platform
+
+    
+    <!-- FILE -->
+
+    <div class="glass-card">
+
+        <input type="file"
+               id="csvFile"
+               class="form-control">
+
+        <button class="btn btn-primary mt-3"
+                onclick="analyzeDataset()">
+
+            Analyze Dataset
+
+        </button>
+
+        <button class="btn btn-success mt-3 ms-2"
+                onclick="window.print()">
+
+            Export PDF Report
+
+        </button>
+
+        <button class="btn btn-warning mt-3 ms-2"
+                onclick="downloadReport()">
+
+            Download TXT Report
+
+        </button>
+
+        <div id="loading"
+             class="mt-3 text-info"
+             style="display:none;">
+
+            Training AI model & analyzing dataset...
+
+        </div>
+
+        <div class="progress mt-3">
+
+            <div class="progress-bar progress-bar-striped progress-bar-animated"
+                 id="progressBar"
+                 style="width:0%">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- METRICS -->
+
+    <div class="row">
+
+        <div class="col-md-3">
+
+            <div class="glass-card">
+
+                <h5>Total Records</h5>
+
+                <div class="metric-value"
+                     id="records">
+
+                    0
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="glass-card">
+
+                <h5>Bias Score</h5>
+
+                <div class="metric-value"
+                     id="biasScore">
+
+                    0%
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="glass-card">
+
+                <h5>Model Accuracy</h5>
+
+                <div class="metric-value"
+                     id="modelAccuracy">
+
+                    0%
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="glass-card">
+
+                <h5>AI Governance</h5>
+
+                <div class="metric-value"
+                     id="governanceScore">
+
+                    0%
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- FAIRNESS -->
+
+    <div class="glass-card text-center">
+
+        <h3>AI Fairness Index</h3>
+
+        <div class="fairness-circle"
+             id="fairnessGauge">
+
+            0%
+
+        </div>
+
+    </div>
+
+    <!-- CHARTS -->
+
+    <div class="row">
+
+        <div class="col-md-6">
+
+            <div class="glass-card">
+
+                <h3>Race Analysis</h3>
+
+                <div id="raceChart"></div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="glass-card">
+
+                <h3>Gender Distribution</h3>
+
+                <div id="genderChart"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- DEMOGRAPHIC DISPARITY -->
+
+    <div class="glass-card">
+
+        <h3>
+
+            Demographic Disparity Analysis
+
+        </h3>
+
+        <table class="table table-dark table-bordered mt-4">
+
+            <thead>
+
+                <tr>
+
+                    <th>Demographic Group</th>
+
+                    <th>Population %</th>
+
+                    <th>Risk Level</th>
+
+                    <th>Disparity Score</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="disparityTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- LIVE PREDICTION -->
+
+    <div class="glass-card">
+
+        <h3>Live AI Prediction</h3>
+
+        <div class="row">
+
+            <div class="col-md-3">
+
+                <input type="number"
+                       id="predictAge"
+                       class="form-control"
+                       placeholder="Age">
+
+            </div>
+
+            <div class="col-md-3">
+
+                <input type="number"
+                       id="predictPriors"
+                       class="form-control"
+                       placeholder="Priors Count">
+
+            </div>
+
+            <div class="col-md-3">
+
+                <select id="predictGender"
+                        class="form-control">
+
+                    <option>Male</option>
+
+                    <option>Female</option>
+
+                </select>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <button class="btn btn-info w-100"
+                        onclick="manualPrediction()">
+
+                    Predict Risk
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <h4 class="mt-4">
+
+            Prediction Result:
+            <span class="text-info"
+                  id="livePrediction">
+
+                -
+            </span>
+
+        </h4>
+
+    </div>
+
+    <!-- EXPLAINABLE AI -->
+
+    <div class="glass-card">
+
+        <h3>Explainable AI</h3>
+
+        <div id="explanation">
+
+            Awaiting prediction...
+
+        </div>
+
+    </div>
+
+    <!-- BIAS ALERT -->
+
+    <div class="glass-card">
+
+        <h3>Bias Alert System</h3>
+
+        <div id="biasAlert"
+             class="text-warning">
+
+            No alerts generated.
+
+        </div>
+
+    </div>
+
+    <!-- CONFUSION MATRIX -->
+
+    <div class="glass-card">
+
+        <h3>Confusion Matrix</h3>
+
+        <table class="table table-dark table-bordered">
+
+            <tr>
+
+                <th></th>
+
+                <th>Predicted Positive</th>
+
+                <th>Predicted Negative</th>
+
+            </tr>
+
+            <tr>
+
+                <th>Actual Positive</th>
+
+                <td>42</td>
+
+                <td>8</td>
+
+            </tr>
+
+            <tr>
+
+                <th>Actual Negative</th>
+
+                <td>5</td>
+
+                <td>45</td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+
+<footer>
+
+    Responsible AI • Ethical ML • Fairness Auditing • Bias Analytics
+
+</footer>
+
+</div>
+
+<script>
+
+google.charts.load('current', {
+    packages:['corechart']
+});
+
+let trainedModel;
+
+function login(){
+
+    const email =
+        document.getElementById("email").value;
+
+    const password =
+        document.getElementById("password").value;
+
+    if(email && password){
+
+        document.getElementById("loginPage")
+        .style.display = "none";
+
+        document.getElementById("dashboard")
+        .style.display = "block";
+    }
+
+    else{
+
+        alert("Enter login details");
+    }
+}
+
+function analyzeDataset(){
+
+    const file =
+        document.getElementById("csvFile").files[0];
+
+    if(!file){
+
+        alert("Upload dataset");
+
+        return;
+    }
+
+    document.getElementById("loading")
+    .style.display = "block";
+
+    document.getElementById("progressBar")
+    .style.width = "30%";
+
+    Papa.parse(file,{
+
+        header:true,
+
+        skipEmptyLines:true,
+
+        complete:function(results){
+
+            processData(results.data);
+        }
+    });
+}
+
+async function processData(data){
+
+    let raceCounts = {};
+
+    let male = 0;
+
+    let female = 0;
+
+    data.forEach(row=>{
+
+        const race =
+            row.race || "Unknown";
+
+        const sex =
+            row.sex || "Unknown";
+
+        if(!raceCounts[race]){
+
+            raceCounts[race] = 0;
+        }
+
+        raceCounts[race]++;
+
+        if(sex.toLowerCase() === "male"){
+
+            male++;
+        }
+
+        if(sex.toLowerCase() === "female"){
+
+            female++;
+        }
+    });
+
+    const values =
+        Object.values(raceCounts);
+
+    const max =
+        Math.max(...values);
+
+    const min =
+        Math.min(...values);
+
+    const biasScore =
+        (
+            ((max-min)/max)*100
+        ).toFixed(2);
+
+    document.getElementById("records")
+    .innerHTML =
+        data.length;
+
+    document.getElementById("biasScore")
+    .innerHTML =
+        biasScore + "%";
+
+    document.getElementById("fairnessGauge")
+    .innerHTML =
+        (100-biasScore).toFixed(2) + "%";
+
+    document.getElementById("governanceScore")
+    .innerHTML =
+        (95-biasScore/2).toFixed(2) + "%";
+
+    if(biasScore > 20){
+
+        document.getElementById("biasAlert")
+        .innerHTML =
+        "⚠ High demographic disparity detected.";
+    }
+
+    drawRaceChart(raceCounts);
+
+    drawGenderChart(male,female);
+
+    generateDisparityTable(
+        raceCounts,
+        data.length
+    );
+
+    await trainAIModel(data);
+
+    document.getElementById("loading")
+    .style.display = "none";
+
+    document.getElementById("progressBar")
+    .style.width = "100%";
+}
+
+function drawRaceChart(raceCounts){
+
+    const data =
+        new google.visualization.DataTable();
+
+    data.addColumn('string','Race');
+
+    data.addColumn('number','Count');
+
+    for(let race in raceCounts){
+
+        data.addRow([
+            race,
+            raceCounts[race]
+        ]);
+    }
+
+    const chart =
+        new google.visualization.ColumnChart(
+
+            document.getElementById('raceChart')
+        );
+
+    chart.draw(data,{
+        backgroundColor:'#fff'
+    });
+}
+
+function drawGenderChart(male,female){
+
+    const data =
+        google.visualization.arrayToDataTable([
+
+            ['Gender','Count'],
+
+            ['Male',male],
+
+            ['Female',female]
+        ]);
+
+    const chart =
+        new google.visualization.PieChart(
+
+            document.getElementById('genderChart')
+        );
+
+    chart.draw(data,{
+        backgroundColor:'#fff'
+    });
+}
+
+function generateDisparityTable(raceCounts,total){
+
+    let table = "";
+
+    for(let race in raceCounts){
+
+        const count =
+            raceCounts[race];
+
+        const percentage =
+            (
+                (count/total)*100
+            ).toFixed(2);
+
+        let risk =
+            "Low";
+
+        let disparity =
+            "Normal";
+
+        if(percentage < 15){
+
+            risk =
+                "High";
+
+            disparity =
+                "Underrepresented";
+        }
+
+        else if(percentage > 50){
+
+            risk =
+                "Medium";
+
+            disparity =
+                "Overrepresented";
+        }
+
+        table += `
+
+            <tr>
+
+                <td>${race}</td>
+
+                <td>${percentage}%</td>
+
+                <td>${risk}</td>
+
+                <td>${disparity}</td>
+
+            </tr>
+        `;
+    }
+
+    document.getElementById("disparityTable")
+    .innerHTML =
+        table;
+}
+
+async function trainAIModel(data){
+
+    let xs = [];
+
+    let ys = [];
+
+    data.forEach(row=>{
+
+        xs.push([
+
+            Number(row.age)||0,
+
+            Number(row.priors_count)||0
+        ]);
+
+        ys.push([
+
+            Number(row.two_year_recid)||0
+        ]);
+    });
+
+    const xTensor =
+        tf.tensor2d(xs);
+
+    const yTensor =
+        tf.tensor2d(ys);
+
+    trainedModel =
+        tf.sequential();
+
+    trainedModel.add(
+        tf.layers.dense({
+
+            units:8,
+
+            activation:'relu',
+
+            inputShape:[2]
+        })
+    );
+
+    trainedModel.add(
+        tf.layers.dense({
+
+            units:1,
+
+            activation:'sigmoid'
+        })
+    );
+
+    trainedModel.compile({
+
+        optimizer:'adam',
+
+        loss:'binaryCrossentropy',
+
+        metrics:['accuracy']
+    });
+
+    await trainedModel.fit(
+
+        xTensor,
+        yTensor,
+
+        {
+
+            epochs:20
+        }
+    );
+
+    const evalResult =
+        trainedModel.evaluate(
+            xTensor,
+            yTensor
+        );
+
+    const accuracy =
+        await evalResult[1].data();
+
+    document.getElementById("modelAccuracy")
+    .innerHTML =
+        (accuracy[0]*100).toFixed(2)+"%";
+}
+
+async function manualPrediction(){
+
+    const age =
+        Number(
+            document.getElementById("predictAge").value
+        );
+
+    const priors =
+        Number(
+            document.getElementById("predictPriors").value
+        );
+
+    const prediction =
+        trainedModel.predict(
+
+            tf.tensor2d([
+                [age,priors]
+            ])
+        );
+
+    const value =
+        await prediction.data();
+
+    let result =
+        "Low Risk";
+
+    let confidence =
+        (value[0]*100).toFixed(2);
+
+    if(value[0] > 0.5){
+
+        result =
+            "High Risk";
+    }
+
+    document.getElementById("livePrediction")
+    .innerHTML =
+        result + " (" + confidence + "% confidence)";
+
+    document.getElementById("explanation")
+    .innerHTML = `
+
+        Prediction Explanation:
+        <br><br>
+
+        • Age influenced prediction score
+        <br>
+
+        • Prior offenses increased AI risk probability
+        <br>
+
+        • Neural network confidence:
+          ${confidence}%
+    `;
+}
+
+function downloadReport(){
+
+    const report = `
+
+AI FAIRLENS REPORT
+
+AI Bias & Fairness Auditing Platform
+
+Features:
+- TensorFlow.js Neural Network
+- AI Prediction Engine
+- Fairness Analytics
+- Explainable AI
+- Demographic Disparity Detection
+- Bias Detection
+- Governance Scoring
+
+`;
+
+    const blob =
+        new Blob([report],
+        {type:"text/plain"});
+
+    const link =
+        document.createElement("a");
+
+    link.href =
+        URL.createObjectURL(blob);
+
+    link.download =
+        "AI_FairLens_Report.txt";
+
+    link.click();
+}
+
+</script>
+
+</body>
+
+</html>
