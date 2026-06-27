@@ -148,7 +148,6 @@ Generate Reports
 
 ## 🏠 Dashboard
 
-## 🏠 Dashboard
 
 <img src="https://raw.githubusercontent.com/donepudiharshita/fairai-inspector/main/screenshots/dashboard.png" width="100%">
 
