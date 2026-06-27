@@ -9,93 +9,48 @@ Detect • Measure • Explain • Improve AI Fairness
 ![HTML](https://img.shields.io/badge/HTML-5-orange?style=for-the-badge&logo=html5)
 ![CSS](https://img.shields.io/badge/CSS-3-blue?style=for-the-badge&logo=css3)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow?style=for-the-badge&logo=javascript)
-![AI](https://img.shields.io/badge/AI-Fairness-success?style=for-the-badge)
+![AI Fairness](https://img.shields.io/badge/AI-Fairness-success?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Completed-brightgreen?style=for-the-badge)
 
 </div>
 
 ---
 
-# 📖 About The Project
+# 📖 About the Project
 
-Artificial Intelligence models often make decisions that unintentionally discriminate against certain demographic groups. Detecting such bias is an essential part of building trustworthy and ethical AI systems.
+Artificial Intelligence systems are increasingly used in decision-making across domains such as criminal justice, healthcare, banking, recruitment, and education. However, these systems may unintentionally produce biased outcomes that unfairly impact certain demographic groups.
 
-**FairAI Inspector** is a web-based fairness auditing platform that analyzes datasets for demographic bias and provides users with meaningful fairness insights through interactive visualizations, explainable AI, demographic disparity analysis, and fairness metrics.
+**FairAI Inspector** is a web-based fairness auditing platform that helps identify, measure, and explain bias in AI datasets. It enables users to upload datasets, evaluate fairness metrics, analyze demographic disparities, generate AI predictions, and produce downloadable reports.
 
-The application enables users to upload datasets, evaluate fairness indicators, predict potential AI risks, generate fairness reports, and understand the reasoning behind AI decisions.
+The goal of this project is to promote **Responsible AI**, **Transparency**, and **Ethical Machine Learning** through an easy-to-use interactive interface.
 
 ---
 
 # 🎯 Objectives
 
-- Detect demographic bias in AI datasets.
+- Detect demographic bias in datasets.
 - Measure fairness using quantitative metrics.
-- Increase transparency using Explainable AI.
-- Provide risk prediction based on dataset attributes.
+- Improve transparency through Explainable AI (XAI).
+- Predict AI risk using demographic attributes.
 - Generate downloadable fairness reports.
-- Encourage ethical and responsible AI development.
+- Encourage responsible AI practices.
 
 ---
 
-# 🚀 Key Features
+# ✨ Features
 
-### 📂 Dataset Upload
-
-Upload CSV datasets for fairness evaluation.
-
----
-
-### 📊 AI Fairness Dashboard
-
-Displays important fairness statistics including
-
-- Fairness Index
-- Bias Score
-- Model Accuracy
-- AI Governance Score
-
----
-
-### 👥 Demographic Disparity Analysis
-
-Visualizes differences among demographic groups and highlights possible discrimination.
-
----
-
-### 🤖 Live AI Risk Prediction
-
-Predicts AI risk by considering:
-
-- Age
-- Gender
-- Prior Counts
-
----
-
-### 💡 Explainable AI (XAI)
-
-Explains why a prediction was generated, increasing transparency and user trust.
-
----
-
-### 🚨 Bias Alert System
-
-Automatically warns users when unfair demographic disparities are detected.
-
----
-
-### 📑 Report Generation
-
-Generate downloadable
-
-- TXT Report
-- PDF Report
-
----
-
-### 📱 Responsive Interface
-
-Optimized for desktop and laptop browsers.
+- 📂 Upload CSV datasets
+- 📊 AI Fairness Dashboard
+- ⚖️ Bias Score Analysis
+- 🎯 Model Accuracy
+- 🏛️ AI Governance Score
+- 👥 Demographic Disparity Analysis
+- 🤖 Live AI Risk Prediction
+- 💡 Explainable AI (XAI)
+- 🚨 Bias Alert System
+- 📄 Export PDF Report
+- 📝 Download TXT Report
+- 📱 Responsive User Interface
 
 ---
 
@@ -105,8 +60,8 @@ Optimized for desktop and laptop browsers.
 |------------|----------|
 | HTML5 | Structure |
 | CSS3 | Styling |
-| JavaScript | Application Logic |
-| CSV Dataset | Fairness Analysis |
+| JavaScript (ES6) | Application Logic |
+| CSV Dataset (COMPAS) | Fairness Analysis |
 | Git | Version Control |
 | GitHub | Repository Hosting |
 
@@ -148,40 +103,43 @@ Generate Reports
 
 ## 🏠 Dashboard
 
+<p align="center">
+  <img src="./screenshots/dashboard.png" alt="Dashboard" width="100%">
+</p>
 
-<img src="https://raw.githubusercontent.com/donepudiharshita/fairai-inspector/main/screenshots/dashboard.png" width="100%">
-
-The dashboard provides a complete overview of dataset statistics, AI Fairness Index, Bias Score, Model Accuracy, Governance Score, and fairness evaluation.
+The dashboard provides an overview of the uploaded dataset along with the AI Fairness Index, Bias Score, Model Accuracy, Governance Score, and key fairness insights.
 
 ---
 
 ## 📊 Demographic Analysis & Live Prediction
 
+<p align="center">
+  <img src="./screenshots/analysis.png" alt="Demographic Analysis" width="100%">
+</p>
 
-<img src="https://raw.githubusercontent.com/donepudiharshita/fairai-inspector/main/screenshots/analysis.png" width="100%">
-
-Displays demographic distribution, fairness comparison among groups, and predicts AI risk using user inputs.
+This section visualizes demographic disparities and performs live AI risk prediction using Age, Gender, and Prior Counts.
 
 ---
 
 ## 🤖 Explainable AI & Bias Alerts
 
+<p align="center">
+  <img src="./screenshots/prediction.png" alt="Explainable AI" width="100%">
+</p>
 
-<img src="https://raw.githubusercontent.com/donepudiharshita/fairai-inspector/main/screenshots/prediction.png" width="100%">
-
-Explains model predictions and automatically highlights fairness violations using the Bias Alert System.
+Provides explanations for AI predictions and highlights fairness violations through the Bias Alert System.
 
 ---
 
 # 📂 Project Structure
 
 ```text
-fairai-inspector
+fairai-inspector/
 │
-├── screenshots
-│     ├── dashboard.png
-│     ├── analysis.png
-│     └── prediction.png
+├── screenshots/
+│   ├── dashboard.png
+│   ├── analysis.png
+│   └── prediction.png
 │
 ├── app.js
 ├── index.html
@@ -194,72 +152,61 @@ fairai-inspector
 
 # ⚙️ Installation
 
-Clone the repository
+### Clone the repository
 
 ```bash
 git clone https://github.com/donepudiharshita/fairai-inspector.git
 ```
 
-Move into the project
+### Navigate to the project
 
 ```bash
 cd fairai-inspector
 ```
 
-Open
+### Run the project
 
-```text
-index.html
-```
-
-using any modern web browser.
+Open `index.html` in any modern web browser.
 
 ---
 
-# 📈 Outputs
+# 📊 Outputs
 
-✔ AI Fairness Score
-
-✔ Bias Detection
-
-✔ Governance Score
-
-✔ Explainable AI
-
-✔ Risk Prediction
-
-✔ Demographic Analysis
-
-✔ Fairness Report
-
-✔ PDF Export
-
-✔ TXT Export
+- ✅ AI Fairness Score
+- ✅ Bias Detection
+- ✅ Model Accuracy
+- ✅ AI Governance Score
+- ✅ Demographic Analysis
+- ✅ Explainable AI
+- ✅ Live Risk Prediction
+- ✅ Bias Alerts
+- ✅ PDF Report Export
+- ✅ TXT Report Download
 
 ---
 
-# 🌍 Real-World Applications
+# 🌍 Applications
 
-- Responsible AI
 - Criminal Justice Risk Assessment
-- Healthcare AI
-- Banking & Loan Approval Systems
-- Hiring & Recruitment Platforms
-- Educational Admission Systems
-- Government Decision Support
+- Responsible AI Systems
+- Healthcare Decision Support
+- Banking & Loan Approval
+- Recruitment & Hiring
+- Educational Admissions
+- Government Policy Analysis
 
 ---
 
 # 🔮 Future Enhancements
 
-- Machine Learning Model Integration
 - User Authentication
-- Database Connectivity
+- Database Integration
 - Interactive Charts
+- Machine Learning Model Integration
 - Cloud Deployment
-- Multiple Dataset Support
+- Support for Multiple Datasets
+- REST API Integration
 - Dark Mode
-- API Integration
 - AI Recommendation Engine
 
 ---
@@ -267,13 +214,13 @@ using any modern web browser.
 # 📚 Learning Outcomes
 
 - AI Fairness Concepts
-- Explainable AI
 - Responsible AI
+- Explainable AI (XAI)
+- Ethical Machine Learning
 - Frontend Development
-- Dataset Analysis
 - JavaScript Programming
 - Git & GitHub
-- Ethical AI Principles
+- Dataset Analysis
 
 ---
 
@@ -281,18 +228,16 @@ using any modern web browser.
 
 **Donepudi Harshita**
 
-B.Tech CSE Student
+**B.Tech Computer Science Engineering**
 
-GitHub:
-https://github.com/donepudiharshita
+GitHub: https://github.com/donepudiharshita
 
 ---
 
 <div align="center">
 
-### ⭐ If you found this project useful, consider giving it a Star!
+### ⭐ If you found this project useful, please consider giving it a Star!
 
 Made with ❤️ by **Donepudi Harshita**
 
 </div>
-
