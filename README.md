@@ -124,7 +124,7 @@ This section visualizes demographic disparities and performs live AI risk predic
 ## 🤖 Explainable AI & Bias Alerts
 
 <p align="center">
-  <img src="./screenshots/prediction.png" alt="Explainable AI" width="100%">
+  <img src="./screenshots/prediction.png"alt="Explainable AI" width="100%">
 </p>
 
 Provides explanations for AI predictions and highlights fairness violations through the Bias Alert System.
