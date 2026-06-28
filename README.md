@@ -238,6 +238,6 @@ GitHub: https://github.com/donepudiharshita
 
 ### ⭐ If you found this project useful, please consider giving it a Star!
 
-Made with ❤️ by **Donepudi Harshita**
+Made by **Donepudi Harshita**
 
 </div>
